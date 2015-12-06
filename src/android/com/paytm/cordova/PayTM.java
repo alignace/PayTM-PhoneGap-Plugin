@@ -84,16 +84,32 @@ public class PayTM extends CordovaPlugin {
 
             @Override
             public void onTransactionSuccess(Bundle inResponse) {
-                Log.i("Error", "onTransactionSuccess :" + inResponse);
+                Log.i("Success", "onTransactionSuccess :" + inResponse);
 //                onTransactionSuccess :Bundle[{GATEWAYNAME=WALLET, PAYMENTMODE=PPI, TXNDATE=2015-02-19 17:01:42.0, STATUS=TXN_SUCCESS, MID=sumjkE62398232705701, CURRENCY=INR, ORDERID=5384643, TXNID=70013, IS_CHECKSUM_VALID=N, TXNAMOUNT=100.00, BANKTXNID=CC9795B5013489B9, BANKNAME=, RESPMSG=Txn Successful., RESPCODE=01, CHECKSUMHASH=8liiSa0uQ0S1lCALiQA3FsyQx6xMey9m8VrF+WZu1tTxG+72c3bU1UYZZg+j/UMS5w9F8iHXq051G4/XtVe4L7FSTk5PGnQpp4r6+QkuyWM=}]
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, 0));
+                JSONObject jsonObject = new JSONObject();
+                for (String key : inResponse.keySet()) {
+                    Object value = inResponse.get(key);
+                    try {
+                        jsonObject.put(key, value.toString());
+                    } catch (JSONException e) {
+                    }
+                }
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, jsonObject));
             }
 
             @Override
             public void onTransactionFailure(String inErrorMessage,Bundle inResponse)
             {
                 Log.i("Error","onTransactionFailure :"+inErrorMessage);
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, 0));
+                JSONObject jsonObject = new JSONObject();
+                for (String key : inResponse.keySet()) {
+                    Object value = inResponse.get(key);
+                    try {
+                        jsonObject.put(key, value.toString());
+                    } catch (JSONException e) {
+                    }
+                }
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, jsonObject));
             }
 
 
