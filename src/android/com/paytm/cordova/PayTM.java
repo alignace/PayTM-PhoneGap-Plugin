@@ -63,7 +63,7 @@ public class PayTM extends CordovaPlugin {
 
         paytm_service = PaytmPGService.getProductionService();
         Map<String, String> paramMap = new HashMap<String, String>();
-        paramMap.put("REQUEST_TYPE", "DEFAULT");
+        //paramMap.put("REQUEST_TYPE", "DEFAULT");
         paramMap.put("ORDER_ID", order_id);
         paramMap.put("MID", PAYTM_MERCHANT_ID);
         paramMap.put("CUST_ID", cust_id);
